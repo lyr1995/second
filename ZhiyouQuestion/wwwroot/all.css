@@ -1,0 +1,28 @@
+body{
+    margin-top: 65px;
+}
+.navbar-title{
+    color: white;
+    line-height: 50px;
+    text-align: center;
+    font-size: 18px;
+}
+.navbar-title span{
+    line-height: 50px;
+}
+.glyphicon{
+    cursor: pointer;
+}
+.media img{
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+}
+.media{
+    border-bottom: 1px solid gainsboro;
+    padding: 5px 5px 20px;
+}
+.media-footing{
+    color: #999999;
+    font-size: 13px;
+}

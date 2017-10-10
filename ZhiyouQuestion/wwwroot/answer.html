@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>回答</title>
+    <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./all.css">
+</head>
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="row">
+                <div class="navbar-title">
+                    <span id="goback" class="glyphicon glyphicon-chevron-left pull-left"></span> 回答
+                    <span id="home" class="glyphicon glyphicon-home pull-right"></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 表单 -->
+    <div class="container">
+        <div class="row">
+            <form action="/user/answer" method="post">
+                <div class="form-group">
+                    <textarea class="form-control" name="content" rows="10" placeholder="请详细描述你的答案"></textarea>
+                </div>
+                <div class="form-group">
+                    <input class="form-control btn btn-success" value="回答" type="submit" required>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 放置模态框 -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="myModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">回答--智游问答</h4>
+                </div>
+                <div class="modal-body">
+                    <!-- 显示从后返回的响应数据 -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">确认</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./jquery-3.2.1.js"></script>
+    <script src="./bootstrap/js/bootstrap.min.js"></script>
+    <script src="./jquery.cookie.js"></script>
+    <script>
+         $('#goback').click(function () {
+            history.go(-1);
+        })
+        $('#home').click(function () {
+            location.href = 'index.html'
+        })
+        // 获取到当前的question
+        var question=$.cookie('question');
+        alert(question)
+        $('form').submit(function(e){
+            e.preventDefault();
+            $.post(this.action,$(this).serialize(),function(data){
+                $('.modal-body').html(data.msg);
+                $('#myModal').modal('show').on('hide.bs.modal', function () {
+                    if (data.code == 1) {
+                        location.href = '/';
+                    } else {
+                        location.href = 'answer.html';
+                    }
+                })
+            })
+        })
+    </script>
+</body>
+</html>
